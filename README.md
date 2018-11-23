@@ -4,7 +4,8 @@ https://bitbucket.org/gmurt/kscomponents
 
 
 # KernowSoftwareFMX
-Kernow Software FMX Components for XE7, XE8 & XE10 Seattle. 
+Kernow Software FMX Components for XE7 .. DX10.2 for Onyx Sistemas in 23/11/2018
+# All component credits are from authors and maintainers previously responsible.
 
 (May work with earlier versions but untested)
 
