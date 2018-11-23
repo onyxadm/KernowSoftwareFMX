@@ -334,7 +334,11 @@ procedure GenerateBadge(ACanvas: TCanvas; ATopLeft: TPointF; AValue: integer; AC
     ACanvas.Fill.Color := AColor;
     ACanvas.FillEllipse(ARect, 1);
     ACanvas.Stroke.Color := AColor;
+    {$IF CompilerVersion <= 31.0}
     ACanvas.StrokeThickness := 1;
+    {$ELSE}
+    ACanvas.Stroke.Thickness := 1;
+    {$ENDIF}
     ACanvas.DrawEllipse(ARect, 1);
   end;
 var

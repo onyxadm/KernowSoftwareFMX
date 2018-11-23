@@ -146,7 +146,11 @@ begin
 
     AThickness := Round(25 * C_SCALE);
 
+    {$IF CompilerVersion <= 31.0}
     FBitmap.Canvas.StrokeThickness := 4;
+    {$ELSE}
+    FBitmap.Canvas.Stroke.Thickness := 4;
+    {$ENDIF}
     FBitmap.Canvas.Stroke.Color := FBackgroundColor;
     FBitmap.Canvas.Stroke.Kind := TBrushKind.Solid;
 
@@ -165,7 +169,11 @@ begin
 
     AAngle := 0;
 
+    {$IF CompilerVersion <= 31.0}
     FBitmap.Canvas.StrokeThickness := 4;
+    {$ELSE}
+    FBitmap.Canvas.Stroke.Thickness := 4;
+    {$ENDIF}
     FBitmap.Canvas.Stroke.Color := FColor;
     FBitmap.Canvas.Stroke.Kind := TBrushKind.Solid;
 

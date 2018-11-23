@@ -945,7 +945,7 @@ type
   TksTableViewItems = class(TObjectList<TksTableViewItem>)
   private
     FCachedCount: integer;
-    {$IFNDEF VER310}
+    {$IF CompilerVersion < 31.0} {.$IFNDEF VER310}
     [weak]FTableView: TksTableView;
     procedure UpdateIndexes;
     {$ENDIF}
@@ -953,7 +953,7 @@ type
     function GetFirstItem: TksTableViewItem;
     function GetItemByID(AID: string): TksTableViewItem;
   protected
-    {$IFDEF VER310}
+    {$IF CompilerVersion >= 31.0} {.$IFDEF VER310}
     [weak]FTableView: TksTableView;
     procedure UpdateIndexes;
     {$ENDIF}
@@ -3757,13 +3757,21 @@ begin
   begin
     // seperator...
     ACanvas.Stroke.Color := FTableView.Appearence.SeparatorColor;
+    {$IF CompilerVersion <= 31.0}
     ACanvas.StrokeThickness := 1;
+    {$ELSE}
+    ACanvas.Stroke.Thickness := 1;
+    {$ENDIF}
     ACanvas.Stroke.Kind := TBrushKind.Solid;
     ACanvas.Stroke.Dash := TStrokeDash.Solid;
     if FPurpose = Header then
     begin
       ACanvas.Stroke.Color := $FFD2D2D2;
+      {$IF CompilerVersion <= 31.0}
       ACanvas.StrokeThickness := 0.5;
+      {$ELSE}
+      ACanvas.Stroke.Thickness := 0.5;
+      {$ENDIF}
     end;
     ASeperatorMargin := 0;
     if (FTableView.FullWidthSeparator = False) and (FPurpose = TksTableViewItemPurpose.None) then
@@ -6415,7 +6423,11 @@ begin
       end;
       ABmp.Canvas.Fill.Assign(FFill);
       ABmp.Canvas.Stroke.Assign(FStroke);
+      {$IF CompilerVersion <= 31.0}
       ABmp.Canvas.StrokeThickness := 1;
+      {$ELSE}
+      ABmp.Canvas.Stroke.Thickness := 1;
+      {$ENDIF}
       FFill.Color := FFill.Color;
       if FShape in [ksRectangle, ksRoundRect, ksSquare] then
       begin
@@ -7052,8 +7064,13 @@ begin
       ACanvas.FillRect(RectF(ARect.Left+AXShift, ARect.Top+AYShift, ARect.Right, ARect.Bottom), 0, 0, AllCorners, 1);
 
       ACanvas.Stroke.Color :=  GetColorOrDefault(FStroke.Color, claDimgray);
+      {$IF CompilerVersion <= 31.0}
       ACanvas.StrokeCap := TStrokeCap.Flat;
       ACanvas.StrokeJoin := TStrokeJoin.Miter;
+      {$ELSE}
+      ACanvas.Stroke.Cap := TStrokeCap.Flat;
+      ACanvas.Stroke.Join := TStrokeJoin.Miter;
+      {$ENDIF}
       DrawRect(RectF(ARect.Left+AXShift, ARect.Top+AYShift, ARect.Right, ARect.Bottom), 0, 0, AllCorners, 1);
 
       ACanvas.Stroke.Color := ACanvas.Fill.Color;

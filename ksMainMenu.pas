@@ -260,8 +260,13 @@ begin
   GetTileRects(ACol, ARow, r1, r2, r3);
   ACanvas.Stroke.Color := claSilver;
   ACanvas.Stroke.Kind := TBrushKind.Solid;
+  {$IF CompilerVersion <= 31.0}
   ACanvas.StrokeDash := TStrokeDash.Solid;
   ACanvas.StrokeThickness := 1;
+  {$ELSE}
+  ACanvas.Stroke.Dash := TStrokeDash.Solid;
+  ACanvas.Stroke.Thickness := 1;
+  {$ENDIF}
   ACanvas.DrawRect(r1, 0, 0, AllCorners, 1);
   ACanvas.DrawRect(r2, 0, 0, AllCorners, 1);
   ACanvas.DrawRect(r3, 0, 0, AllCorners, 1);
@@ -281,7 +286,11 @@ begin
         // design-time border
         Canvas.Stroke.Color := claBlack;
         Canvas.Stroke.Dash := TStrokeDash.Dash;
+        {$IF CompilerVersion <= 31.0}
         Canvas.StrokeThickness := 1;
+        {$ELSE}
+        Canvas.Stroke.Thickness := 1;
+        {$ENDIF}
         Canvas.DrawRect(RectF(0, 0, Width, Height), 0, 0, AllCorners, 1);
 
 

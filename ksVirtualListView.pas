@@ -1138,7 +1138,7 @@ var
   r: TRectF;
   AButtonRect: TRectF;
   ICount: integer;
-  AScrollOffset: single;
+  AScrollOffset, AThickness: single;
 begin
   if FChanged then
   begin
@@ -1268,15 +1268,22 @@ begin
     ACanvas.RestoreState(AState);
   end;
 
+  {$IF CompilerVersion <= 31.0}
   ACanvas.StrokeThickness := 1 / GetScreenScale;
+  AThickness := ACanvas.StrokeThickness;
+  {$ELSE}
+  ACanvas.Stroke.Thickness := 1 / GetScreenScale;
+  AThickness := ACanvas.Stroke.Thickness;
+  {$ENDIF}
+
   ACanvas.Stroke.Color := FOwner.FOwner.Appearence.SeparatorColor;
   if ACanvas.Stroke.Color = claNull then
     ACanvas.Stroke.Color := claDarkgray;
 
   if (FIndex = 0) {and (FPurpose = None) and (AScrollPos < 0)} then
-    ACanvas.DrawLine(PointF(0, ARect.Top+(ACanvas.StrokeThickness/2)), PointF(ARect.Width, ARect.Top+(ACanvas.StrokeThickness/2)), 1);
+    ACanvas.DrawLine(PointF(0, ARect.Top + (AThickness / 2)), PointF(ARect.Width, ARect.Top + (AThickness / 2)), 1);
 
-  ACanvas.DrawLine(PointF(0, ARect.Bottom-(ACanvas.StrokeThickness/2)), PointF(ARect.Width, ARect.Bottom-(ACanvas.StrokeThickness/2)), 1);
+  ACanvas.DrawLine(PointF(0, ARect.Bottom - (AThickness / 2)), PointF(ARect.Width, ARect.Bottom - (AThickness / 2)), 1);
 end;
 
 {

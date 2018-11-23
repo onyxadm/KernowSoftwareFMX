@@ -15,6 +15,13 @@
 {$DEFINE XE11_OR_NEWER}
 {$ENDIF}
 
+{$IFDEF VER320}
+{$DEFINE XE8_OR_NEWER}
+{$DEFINE XE10_OR_NEWER}
+{$DEFINE XE11_OR_NEWER}
+{$DEFINE XE12_OR_NEWER}
+{$ENDIF}
+
 { *** HTML SUPPORT - PLEASE READ ***
 
 In order to use the HTML formatting within ksListView, you will need to have the
